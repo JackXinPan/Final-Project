@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Disinfection By-Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="https://d3js.org/d3.v4.js"></script>
+
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/d3Style.css">
+  </head>
+  <body>
+        <!-- navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"> 
+
+          <img class="nav-thm" src="/static/images/chloroform.svg">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="/" class="nav-link">
+               
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="dash" class="nav-link"> 
+        
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-line" viewBox="0 0 16 16">
+                  <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z"/>
+                </svg>
+                Interactive Chart
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="about" class="nav-link">  
+                 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+                About Us
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="hero text-center">
+      <h1>Disinfection By-Product Prediction</h1>
+    </div>
+    <div class="container-fluid">
+
+
+
+    
+        <div class="col-md-2">
+          <aside class="filters">
+            <div class="panel panel-default">
+              <div class="panel-heading">Enter Parameters</div>
+              <div class="panel-body">
+                <form>
+                  <div class="form-group">
+                    <ul class="list-group" id="filters">
+                      <li class="filter list-group-item">
+                        <label for="doserate">Dose Rate (mg/L)</label>
+                        <input class="form-control" id="doserate" type="text" placeholder="<enter reading>">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="date">FOC (mg/L)</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="date">UVA</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="date">Br (mg/L)</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="date">Cl (mg/L)</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="date">Residual After 30 mins</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="date">Turbidity</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="date">Conductivity (mS/m)</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="date">pH</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                      </li>
+                      <li class="filter list-group-item">
+                        <label for="date">True Colour</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                      </li>
+
+                      <!-- additional filters populated using D3 js -->
+
+  
+                      <li class="filter list-group-item">
+                        <label for="type">Water Type</label>
+                        <select class="custom-select mr-sm-2" id="type">
+                          <option selected value="">All</option>
+                          <option value ="GW">Ground Water</option>
+                          <option value ="SW">Surface Water</option>
+                         
+                        </select>
+                      </li>
+
+                    </ul>
+                  </div>
+                  <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+                  <button id="clear-btn" type="button" class="btn btn-default">Clear Filters</button>
+
+
+                </form>
+              </div>
+            </div>
+          </aside>
+          </div>
+
+          <div class="col-md-10">
+            <div id="stackedbar" class="bg-light"> 
+              <h6 id="sbsummary" class="p-3"> Disease Group Infection Rates per 100,000 population in all States in 2015</h6>   
+            </div>
+        </div>
+ 
+      <div class="row m-5 p-5">
+        <h2 class="text-center">The Data</h2>
+        <p> The key source of data was the National Notifiable Diseases Surveillance System: <a href="http://www9.health.gov.au/cda/source/rpt_2.cfm"> http://www9.health.gov.au/cda/source/rpt_2.cfm. </a> This website can generate reports on notified cases by State, Year, Disease Grouping and Disease. </p>
+        <p>This data was selected as the Authors wish to investigate trends in infection rates between States and develop a tool that could guide strategic public health funding</p>
+        <p>Data was obtained from the site using a Python application developed by the Authors. The application utilises the Splinter and Pandas Libraries to scrape data from the website then the SQLAlchemy Libary to store this data in a SQLite Database.</p>
+        <p>An SQLAlchemy/Flask application was developed to create an API that could read data from the SQLite database into JavaScript</p>
+        <p>All charts were created and analysis was performed using the D3.js Libary. The charts are desgined to allow users to explore the dataset and compare infection rates by disease grouping, state, year and individual diseases.</p>
+        <p>This dataset could be extended by incorporating infection rates by age and sex and other contributing health statistics which would enable reconstructive analysis to identify key risk factors and establish early interventions. </p>
+      </div>
+     
+
+        <div class="col-sm-3">
+        </div>
+      </div>
+   
+
+
+  
+
+
+
+
+      </div>
+    </div>
+
+    <!-- Footer-->
+    <div id="footer">
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+
+    <script src="/static/js/icon.js"></script>
+  </body>
+</html>

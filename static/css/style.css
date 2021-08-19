@@ -1,0 +1,89 @@
+/* .iframeContainer {
+  padding: 20px;
+  border: 1px solid #e3e3e3;
+} */
+
+.hero {
+  position: relative;
+  height: 550px;
+  padding: 20px;
+  margin: 0;
+  background: black;
+  background-image: url("../images/Water.jpg");
+  background-attachment: fixed;
+  background-position: bottom center;
+  background-size: cover;
+}
+
+
+.container-xxl {
+  padding: 10;
+  border:10;
+}
+
+/* Sticky Footer rules (https://getbootstrap.com/examples/sticky-footer/) */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  padding-bottom: 80px;
+  background-color: #f0f0f0;
+}
+.bg-dark {
+  background: #124669;
+  background: -moz-linear-gradient(top, #124669 0%, #1D6FA6 50%, #124669 100%);
+  background: -webkit-linear-gradient(top, #124669 0%, #1D6FA6 50%, #124669 100%);
+  background: linear-gradient(to bottom, #124669 0%, #1D6FA6 50%, #124669 100%);
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%; 
+  height: 10px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  text-align: center;
+  background-color: #f5f5f5;
+}
+
+.nav-thm {
+  position: absolute;
+  bottom: 5px;
+  left: 150px;
+  width: 35px;
+  height: 55px;
+  color: white;
+}
+
+#footer p {
+  margin: 0;
+  font-size: 16px;
+}
+
+#icon {
+  position: relative;
+  
+}
+
+.pic {
+  position: absolute;
+  top: 45px;
+  left:35px;
+}
+
+label {
+  font-weight: 700;
+
+
+}
+
+
+
+/* @media (min-width: 1200px) {
+  .container{
+      max-width: 970px;
+  }
+} */

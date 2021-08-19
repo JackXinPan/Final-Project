@@ -1,0 +1,57 @@
+
+
+.maplabels {
+  font: 12px;
+}
+
+.labels { 
+  font: 14px sans-serif;
+  white-space: pre-wrap;
+}
+
+.chart {
+  display: block;
+  margin: 0;
+}
+
+.d3-tip {
+  padding: 6px;
+  font-size: 12px;
+  line-height: 1;
+  line-height: 1.5em;
+  color: #fff;
+  text-align: center;
+  text-transform: capitalize;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+}
+/* tip arrow */
+.d3-tip::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+  border-top: 8px solid rgba(0, 0, 0, 0.8);
+  left: 45px;
+  bottom: -8px;
+}
+
+
+
+
+/* Mobile Rules */
+/* @media screen and (max-width: 530px) {
+  .stateText {
+    display: none;
+  }
+
+
+
+@media screen and (max-width: 400px) {
+  .aText {
+    font-size: 13px;
+  }
+} */
