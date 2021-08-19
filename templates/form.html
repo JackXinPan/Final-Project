@@ -17,10 +17,10 @@
         <!-- navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"> 
+        <!-- <a class="navbar-brand" href="#"> 
 
           <img class="nav-thm" src="/static/images/chloroform.svg">
-        </a>
+        </a> -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -62,11 +62,11 @@
     <div class="hero text-center">
       <h1>Disinfection By-Product Prediction</h1>
     </div>
-    <div class="container-fluid">
-
-
-
     
+    
+    <div class="container-fluid">
+      <div class="row">
+  
         <div class="col-md-2">
           <aside class="filters">
             <div class="panel panel-default">
@@ -116,7 +116,7 @@
                         <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
                       </li>
 
-                      <!-- additional filters populated using D3 js -->
+                    
 
   
                       <li class="filter list-group-item">
@@ -139,23 +139,16 @@
               </div>
             </div>
           </aside>
-          </div>
+        </div>
 
-          <div class="col-md-10">
-            <div id="stackedbar" class="bg-light"> 
-              <h6 id="sbsummary" class="p-3"> Disease Group Infection Rates per 100,000 population in all States in 2015</h6>   
-            </div>
+        <div class="col-md-10">
+          <div id="stackedbar" class="bg-light"> 
+              <h6 id="sbsummary" class="p-3"> Parameter Charts</h6>   
+          </div>
         </div>
  
-      <div class="row m-5 p-5">
-        <h2 class="text-center">The Data</h2>
-        <p> The key source of data was the National Notifiable Diseases Surveillance System: <a href="http://www9.health.gov.au/cda/source/rpt_2.cfm"> http://www9.health.gov.au/cda/source/rpt_2.cfm. </a> This website can generate reports on notified cases by State, Year, Disease Grouping and Disease. </p>
-        <p>This data was selected as the Authors wish to investigate trends in infection rates between States and develop a tool that could guide strategic public health funding</p>
-        <p>Data was obtained from the site using a Python application developed by the Authors. The application utilises the Splinter and Pandas Libraries to scrape data from the website then the SQLAlchemy Libary to store this data in a SQLite Database.</p>
-        <p>An SQLAlchemy/Flask application was developed to create an API that could read data from the SQLite database into JavaScript</p>
-        <p>All charts were created and analysis was performed using the D3.js Libary. The charts are desgined to allow users to explore the dataset and compare infection rates by disease grouping, state, year and individual diseases.</p>
-        <p>This dataset could be extended by incorporating infection rates by age and sex and other contributing health statistics which would enable reconstructive analysis to identify key risk factors and establish early interventions. </p>
       </div>
+  
      
 
         <div class="col-sm-3">
@@ -169,7 +162,7 @@
 
 
 
-      </div>
+    
     </div>
 
     <!-- Footer-->

@@ -32,7 +32,7 @@ def data():
 
 
 # api
-@app.route("/data")
+@app.route("/api")
 def diseasegroups():
 
     # get entire table from database
