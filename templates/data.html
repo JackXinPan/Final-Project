@@ -57,6 +57,9 @@
         </div>
       </div>
     </nav>
+    <div class="hero text-center">
+      <h1>Disinfection By-Product Prediction</h1>
+    </div>
 
     <div class="container-fluid">
       <div class="row p-5" id="heading">
@@ -88,6 +91,8 @@
           <h5> 
             <span class="badge bg-secondary">Click States to Explore</span>
           </h5>
+         <div id="predictedTTHM" data-prediction='{{ prediction[0]|tojson }}'> {{ prediction[0]|round|int }} ug/L</div>
+         <div id="testdata" data-form_data="{{ form_data }}"></div>
         </div>
         <div class="col-sm-6"> 
           <h5>
@@ -105,7 +110,7 @@
 
         <div class="col-sm-6">
           <div id="bar" class="bg-light"> 
-            <h6 id="barsummary" class="p-3">Disease Group Infection Rates per 100,000 population for NSW in 2015</h6> 
+            <h6 id="barsummary" class="p-3">Distribution of TTHMs</h6> 
           </div>
         </div>
       </div>
@@ -139,12 +144,7 @@
   
     <!-- Footer-->
     <div id="footer">
-      <blockquote class="blockquote">
-        <p class="mb-0">DATA WILL TALK TO YOU IF YOU'RE WILLING TO LISTEN.</p>
-        <footer class="blockquote-footer">JIM
-          <cite title="Source Title">BERGESON</cite>
-        </footer>
-      </blockquote>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

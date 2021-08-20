@@ -1,36 +1,195 @@
 
 // Call database data
-d3.json("/api/data", function(apidata) {
+d3.csv("/static/data/SW_Data.csv", function(SW_data) {
 
-  
+  console.log(SW_data.columns.slice(4))
   // default options for disease group, year and location
   var groupoption = "Gastrointestinal diseases";
   var locationoption = "NSW";
   var yearoption = 2015;
 
   // get list of all disease groups for dropdown list
-  var allGroups = d3.map(apidata, function(d){return(d.Disease_Group)}).keys();
+  var parameters = SW_data.columns.slice(4);
+
+  
 
   // get list of all years for dropdown list
-  var allYears = d3.map(apidata, function(d){return(d.Year)}).keys();
 
   // append options to menu
   d3.select("#selectButton")
     .selectAll('myOptions')
-    .data(allGroups)
+    .data(parameters)
     .enter()
     .append('option')
     .text(d => d) 
     .attr("value", d => d);
 
-  // append options to menu
-  d3.select("#selectYear")
-    .selectAll('yearOptions')
-    .data(allYears)
-    .enter()
-    .append('option')
-    .text(d => d) 
-    .attr("value", d => d);
+  var prediction = JSON.parse(document.getElementById("predictedTTHM").dataset.prediction);
+
+  var form_data = JSON.parse(JSON.stringify(document.getElementById("testdata").dataset.form_data));
+
+  console.log(form_data);
+
+    // // bar svg height and width
+    // var svgbHeight = 500;
+    // var svgbWidth = 700;
+
+    // // bar chart margins
+    // var chartMargin = {
+    //   top: 50,
+    //   right: 50,
+    //   bottom: 50,
+    //   left: 180
+    // };
+
+    // // bar chart height and width
+    // var chartWidth = svgbWidth - chartMargin.left - chartMargin.right;
+    // var chartHeight = svgbHeight - chartMargin.top - chartMargin.bottom;
+
+    // // add bar chart svg to bar div
+    // var svgbar = d3.select("#bar")
+    //   .append("svg")
+    //   .attr("align","right")
+    //     .attr("height", svgbHeight)
+    //     .attr("width", svgbWidth)
+    //     .append("g")
+    //     .attr("transform", `translate(${chartMargin.left}, 0)`);
+
+
+        // set the dimensions and margins of the graph
+var margin = {top: 10, right: 30, bottom: 30, left: 40},
+width = 460 - margin.left - margin.right,
+height = 400 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+var svgbar = d3.select("#bar")
+.append("svg")
+.attr("width", width + margin.left + margin.right)
+.attr("height", height + margin.top + margin.bottom)
+.append("g")
+.attr("transform",
+      "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+// X axis: scale and draw:
+var x = d3.scaleLinear()
+.domain([0, 550])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
+.range([0, width]);
+svgbar.append("g")
+.attr("transform", "translate(0," + height + ")")
+.call(d3.axisBottom(x));
+
+// set the parameters for the histogram
+var histogram = d3.histogram()
+.value(function(d) { return d.TTHM; })   // I need to give the vector of value
+.domain(x.domain())  // then the domain of the graphic
+.thresholds(x.ticks(30)); // then the numbers of bins
+
+// And apply this function to data to get the bins
+var bins = histogram(SW_data);
+console.log(bins)
+// Y axis: scale and draw:
+var y = d3.scaleLinear()
+.range([height, 0]);
+y.domain([0, d3.max(bins, function(d) { return d.length; })]);   // d3.hist has to be called before the Y axis obviously
+svgbar.append("g")
+.call(d3.axisLeft(y));
+
+// append the bar rectangles to the svg element
+svgbar.selectAll("rect")
+.data(bins)
+.enter()
+.append("rect")
+  .attr("x", 1)
+  .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
+  .attr("width", function(d) { return x(d.x1) - x(d.x0)-1 ; })
+  .attr("height", function(d) { return height - y(d.length); })
+  .style("fill", "#69b3a2")
+
+
+
+
+var star = d3.symbol().type(d3.symbolStar).size(80);
+
+
+svgbar.append("path")
+.attr("d",star)
+.attr("transform","translate(" + x(prediction) +"," + y(5) +")")
+.attr("stroke","rgb(175,0,42)")
+.attr("fill-opacity","0.5")
+.attr("fill","rgb(227,38,54)");
+
+
+
+// set the dimensions and margins of the graph
+// var smargin = {top: 10, right: 30, bottom: 30, left: 60},
+//     swidth = 460 - margin.left - margin.right,
+//     height = 400 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+var scattersvg = d3.select("#scatter")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+
+      // Add X axis
+  var xs = d3.scaleLinear()
+  .domain([0, 13])
+  .range([ 0, width ]);
+  scattersvg.append("g")
+  .attr("transform", "translate(0," + height + ")")
+  .call(d3.axisBottom(xs));
+
+// Add Y axis
+var ys = d3.scaleLinear()
+  .domain([0, 600])
+  .range([ height, 0]);
+  scattersvg.append("g")
+  .call(d3.axisLeft(ys));
+
+// Add dots
+scattersvg.append('g')
+  .selectAll("dot")
+  .data(SW_data)
+  .enter()
+  .append("circle")
+    .attr("cx", function (d) {  return xs(d["Dose Rate (mg/L)"]); } )
+    .attr("cy", function (d) { return ys(d.TTHM); } )
+    .attr("r", 3)
+    .style("fill", "#69b3a2")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // .attr("x", function(d) { return xsb(d.data.Location); })
+  // .attr("y", function(d) {return ysb(Object.values(d)[1])})
+  // .attr("height", function(d,i) { return (ysb(Object.values(d)[0]) - ysb(Object.values(d)[1])); })
+  // .attr("width",xsb.bandwidth())
+
+
+
+
+
 
   // data filtered by disease group
   var f = apidata.filter(function(d) { return d.Disease_Group===groupoption}).filter(function(d) { return d.Location !="Aust" && d.Location !="Last 5yearsmean" });

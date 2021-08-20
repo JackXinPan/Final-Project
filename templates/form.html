@@ -77,43 +77,43 @@
                     <ul class="list-group" id="filters">
                       <li class="filter list-group-item">
                         <label for="doserate">Dose Rate (mg/L)</label>
-                        <input class="form-control" id="doserate" type="text" placeholder="<required>">
+                        <input class="form-control" name="doserate" type="text" placeholder="<required>">
                       </li>
                       <li class="filter list-group-item">
                         <label for="foc">FOC (mg/L)</label>
-                        <input class="form-control" id="foc" type="text" placeholder="<required>">
+                        <input class="form-control" name="foc" type="text" placeholder="<required>">
                       </li>
                       <li class="filter list-group-item">
                         <label for="uva">UVA</label>
-                        <input class="form-control" id="uva" type="text" placeholder="<required>">
+                        <input class="form-control" name="uva" type="text" placeholder="<required>">
                       </li>
                       <li class="filter list-group-item">
                         <label for="br">Br (mg/L)</label>
-                        <input class="form-control" id="br" type="text" placeholder="<optional>">
+                        <input class="form-control" name="br" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
                         <label for="cl">Cl (mg/L)</label>
-                        <input class="form-control" id="cl" type="text" placeholder="<optional>">
+                        <input class="form-control" name="cl" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
                         <label for="t30">Residual After 30 mins</label>
-                        <input class="form-control" id="t30" type="text" placeholder="<optional>">
+                        <input class="form-control" name="t30" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
                         <label for="turb">Turbidity</label>
-                        <input class="form-control" id="turb" type="text" placeholder="<optional>">
+                        <input class="form-control" name="turb" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
                         <label for="cond">Conductivity (mS/m)</label>
-                        <input class="form-control" id="cond" type="text" placeholder="<optional>">
+                        <input class="form-control" name="cond" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
                         <label for="pH">pH</label>
-                        <input class="form-control" id="pH" type="text" placeholder="<optional>">
+                        <input class="form-control" name="pH" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
                         <label for="colour">True Colour</label>
-                        <input class="form-control" id="colour" type="text" placeholder="<optional>">
+                        <input class="form-control" name="colour" type="text" placeholder="<optional>">
                       </li>
 
                     
@@ -121,7 +121,7 @@
   
                       <li class="filter list-group-item">
                         <label for="watertype">Water Type</label>
-                        <select class="custom-select mr-sm-2" id="watertype">
+                        <select class="custom-select mr-sm-2" name="watertype">
                           <option selected value="">required</option>
                           <option value ="GW">Ground Water</option>
                           <option value ="SW">Surface Water</option>
@@ -131,7 +131,7 @@
 
                     </ul>
                   </div>
-                  <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+                  <button id="filter-btn" type="submit" class="btn btn-default">Make Prediction</button>
                   <button id="clear-btn" type="button" class="btn btn-default">Clear Filters</button>
 
 
