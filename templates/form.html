@@ -72,57 +72,57 @@
             <div class="panel panel-default">
               <div class="panel-heading">Enter Parameters</div>
               <div class="panel-body">
-                <form>
+                <form action = "/predict/" method="post">
                   <div class="form-group">
                     <ul class="list-group" id="filters">
                       <li class="filter list-group-item">
                         <label for="doserate">Dose Rate (mg/L)</label>
-                        <input class="form-control" id="doserate" type="text" placeholder="<enter reading>">
+                        <input class="form-control" id="doserate" type="text" placeholder="<required>">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="date">FOC (mg/L)</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                        <label for="foc">FOC (mg/L)</label>
+                        <input class="form-control" id="foc" type="text" placeholder="<required>">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="date">UVA</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                        <label for="uva">UVA</label>
+                        <input class="form-control" id="uva" type="text" placeholder="<required>">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="date">Br (mg/L)</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                        <label for="br">Br (mg/L)</label>
+                        <input class="form-control" id="br" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="date">Cl (mg/L)</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                        <label for="cl">Cl (mg/L)</label>
+                        <input class="form-control" id="cl" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="date">Residual After 30 mins</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                        <label for="t30">Residual After 30 mins</label>
+                        <input class="form-control" id="t30" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="date">Turbidity</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                        <label for="turb">Turbidity</label>
+                        <input class="form-control" id="turb" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="date">Conductivity (mS/m)</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                        <label for="cond">Conductivity (mS/m)</label>
+                        <input class="form-control" id="cond" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="date">pH</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                        <label for="pH">pH</label>
+                        <input class="form-control" id="pH" type="text" placeholder="<optional>">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="date">True Colour</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="<enter reading>">
+                        <label for="colour">True Colour</label>
+                        <input class="form-control" id="colour" type="text" placeholder="<optional>">
                       </li>
 
                     
 
   
                       <li class="filter list-group-item">
-                        <label for="type">Water Type</label>
-                        <select class="custom-select mr-sm-2" id="type">
-                          <option selected value="">All</option>
+                        <label for="watertype">Water Type</label>
+                        <select class="custom-select mr-sm-2" id="watertype">
+                          <option selected value="">required</option>
                           <option value ="GW">Ground Water</option>
                           <option value ="SW">Surface Water</option>
                          

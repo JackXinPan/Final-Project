@@ -22,11 +22,17 @@ app = Flask(__name__)
 def form():
     return render_template('form.html')
  
-@app.route('/data/', methods = ['POST', 'GET'])
+@app.route('/predict/', methods = ['POST', 'GET'])
 def data():
     if request.method == 'GET':
         return f"The URL /data is accessed directly. Try going to '/form' to submit form"
     if request.method == 'POST':
+
+               #get form data
+        sepal_length = request.form.get('sepal_length')
+        sepal_width = request.form.get('sepal_width')
+        petal_length = request.form.get('petal_length')
+        petal_width = request.form.get('petal_width')
         form_data = request.form
         return render_template('data.html',form_data = form_data)
 
