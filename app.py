@@ -6,9 +6,10 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func, inspect
 import numpy as np
 import joblib
+import json 
 
 
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 # from flask import Flask, jsonify, render_template
 
 # # connect to db
@@ -46,6 +47,7 @@ def prediction():
         colour = request.form.get('colour')
         watertype = request.form.get('watertype')
         form_data = request.form.to_dict(flat=True)
+        form_json = json.dumps(form_data) 
         print(form_data)
 
         if br == "" or cl == "" or t30 == "" or turb == "" or cond == "" or pH == "" or colour == "":
@@ -53,7 +55,7 @@ def prediction():
         
                 prediction = makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype)
                 #pass prediction to template
-                return render_template('data.html', prediction = prediction, form_data = form_data)
+                return render_template('data.html', prediction = prediction, form_data = form_json)
     
             except ValueError:
                 return "Please Enter valid values"

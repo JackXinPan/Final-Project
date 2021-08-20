@@ -9,7 +9,7 @@ d3.csv("/static/data/SW_Data.csv", function(SW_data) {
   var yearoption = 2015;
 
   // get list of all disease groups for dropdown list
-  var parameters = SW_data.columns.slice(4);
+  var parameters = SW_data.columns.slice(4,5).concat(SW_data.columns.slice(10));
 
   
 
@@ -26,9 +26,9 @@ d3.csv("/static/data/SW_Data.csv", function(SW_data) {
 
   var prediction = JSON.parse(document.getElementById("predictedTTHM").dataset.prediction);
 
-  var form_data = JSON.parse(JSON.stringify(document.getElementById("testdata").dataset.form_data));
+  var form_data = JSON.parse((document.getElementById("testdata").dataset.form_data));
 
-  console.log(form_data);
+  console.log(form_data["doserate"]);
 
     // // bar svg height and width
     // var svgbHeight = 500;
