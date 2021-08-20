@@ -30,31 +30,7 @@ d3.csv("/static/data/SW_Data.csv", function(SW_data) {
 
   console.log(form_data["doserate"]);
 
-    // // bar svg height and width
-    // var svgbHeight = 500;
-    // var svgbWidth = 700;
-
-    // // bar chart margins
-    // var chartMargin = {
-    //   top: 50,
-    //   right: 50,
-    //   bottom: 50,
-    //   left: 180
-    // };
-
-    // // bar chart height and width
-    // var chartWidth = svgbWidth - chartMargin.left - chartMargin.right;
-    // var chartHeight = svgbHeight - chartMargin.top - chartMargin.bottom;
-
-    // // add bar chart svg to bar div
-    // var svgbar = d3.select("#bar")
-    //   .append("svg")
-    //   .attr("align","right")
-    //     .attr("height", svgbHeight)
-    //     .attr("width", svgbWidth)
-    //     .append("g")
-    //     .attr("transform", `translate(${chartMargin.left}, 0)`);
-
+ 
 
         // set the dimensions and margins of the graph
 var margin = {top: 10, right: 30, bottom: 30, left: 40},
@@ -164,6 +140,13 @@ scattersvg.append('g')
     .attr("cy", function (d) { return ys(d.TTHM); } )
     .attr("r", 3)
     .style("fill", "#69b3a2")
+
+  scattersvg.append("path")
+    .attr("d",star)
+    .attr("transform","translate(" + xs(form_data["doserate"]) +"," + ys(prediction) +")")
+    .attr("stroke","rgb(175,0,42)")
+    .attr("fill-opacity","0.5")
+    .attr("fill","rgb(227,38,54)");
 
 
 
