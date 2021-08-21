@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a href="/form" class="nav-link">
+              <a href="/" class="nav-link">
                 <!-- bootstrap glyphicon -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
@@ -45,7 +45,7 @@
         <div id="predictedTTHM" data-prediction='{{ prediction[0]|tojson }}'>  
           <h4 class="p-5"> Total Trihalomethane Formation Prediction:  
             <span id = "pred" class="badge rounded-pill bg-danger ms-3 p-2"><h3> {{ prediction[0]|round|int }} ug/L </h3> </span>
-            <span><a class="btn btn-success ms-3" href="/form" role="button">New Prediction</a></span>
+            <span><a class="btn btn-success ms-3" href="/" role="button">New Prediction</a></span>
           </h4>
         </div>
         <!-- rest of form data -->

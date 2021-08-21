@@ -11,14 +11,14 @@ from flask import Flask, jsonify, render_template, request
 # initialise app
 app = Flask(__name__)
 
-@app.route('/form/')
+@app.route('/')
 def form():
-    return render_template('form.html')
+    return render_template('index.html')
  
 @app.route('/predict/', methods = ['POST', 'GET'])
 def prediction():
     if request.method == 'GET':
-        return f"The URL /data is accessed directly. Try going to '/form' to submit form"
+        return f"The URL /data is accessed directly. Try going to '/' to submit form"
     if request.method == 'POST':
 
         #get form data
