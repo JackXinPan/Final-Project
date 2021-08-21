@@ -1,33 +1,19 @@
 
 # Import depednancies
-import sqlalchemy
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, func, inspect
+
 import numpy as np
 import joblib
 import json 
-from sklearn.preprocessing import StandardScaler
-
 
 from flask import Flask, jsonify, render_template, request
-# from flask import Flask, jsonify, render_template
 
-# # connect to db
-# engine = create_engine("sqlite:///diseases.sqlite")
-
-# # reflect db
-# Base = automap_base()
-# Base.prepare(engine, reflect=True)
 
 # initialise app
 app = Flask(__name__)
 
-@app.route('/form')
+@app.route('/form/')
 def form():
     return render_template('form.html')
-
-
  
 @app.route('/predict/', methods = ['POST', 'GET'])
 def prediction():
@@ -62,11 +48,10 @@ def prediction():
         
 
 
-
+# prediction fucntion
 def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
 
-
-        
+    # trimmed data
     if br == "" or cl == "" or t30 == "" or turb == "" or cond == "" or pH == "" or colour == "":
 
         test_data = [float(doserate), float(foc), float(uva), 0, 0, 0, 0, 0, 0, 0]
@@ -77,40 +62,42 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
 
         if watertype == "GW":
 
-            file = open("models/GW_model_trimmed.pkl","rb")
-
-                #load trained model
+            #load trained model
             trained_model = joblib.load("models/GW_model_trimmed.pkl")
 
+            #load scaler
             scaler = joblib.load("models/GW_scaler.pkl")
             
+            #scale data
             scaled_data = scaler.transform(test_data)
 
+            #trim and reshape data
             scaled_data = np.array(scaled_data[0][0:3])
-
             scaled_data = scaled_data.reshape(1,-1)
-                #predict
+
+            #predict
             prediction = trained_model.predict(scaled_data)
 
 
         elif watertype == "SW":
-            file = open("models/SW_model_trimmed.pkl","rb")
 
-                #load trained model
+            #load trained model
             trained_model = joblib.load("models/SW_model_trimmed.pkl")
 
+            #load scaler
             scaler = joblib.load("models/SW_scaler.pkl")
 
+            #scale data
             scaled_data = scaler.transform(test_data)
 
+            #trim and reshape data
             scaled_data = np.array(scaled_data[0][0:3])
-
             scaled_data = scaled_data.reshape(1,-1)
                 
-                #predict
+            #predict
             prediction = trained_model.predict(scaled_data)
 
-
+    # full data set
     else:
         test_data = [float(doserate), float(foc), float(uva), float(br), float(cl), float(t30), float(turb), float(cond), float(pH), float(colour)]
 
@@ -120,8 +107,7 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
 
         if watertype == "GW":
 
-            file = open("models/GW_model.pkl","rb")
-                                #load trained model
+            #load trained model
             trained_model = joblib.load("models/GW_model.pkl")
             
             scaler = joblib.load("models/GW_scaler.pkl")
@@ -129,13 +115,13 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
             scaled_data = scaler.transform(test_data)
 
                 
-                #predict
+            #predict
             prediction = trained_model.predict(scaled_data)
 
 
         elif watertype == "SW":
-            file = open("models/SW_model.pkl","rb")
-                                #load trained model
+
+            #load trained model
             trained_model = joblib.load("models/SW_model.pkl")
 
             scaler = joblib.load("models/SW_scaler.pkl")
@@ -143,51 +129,13 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
             scaled_data = scaler.transform(test_data)
 
                 
-                #predict
+            #predict
             prediction = trained_model.predict(scaled_data)
-
-        
 
         
     return prediction
     
 
-
-
-
-
-
-
-
-
-# # api
-# @app.route("/api")
-# def diseasegroups():
-
-#     # get entire table from database
-#     Disease = Base.classes.DiseaseSummary
-
-#     session = Session(engine)
-
-#     results = session.query(Disease)
-    
-#     session.close()
-
-#    #create list of dics for required data
-#     disease_list = []
-
-#     for result in results:
-#         disease_dic = {}
-#         disease_dic["Year"] = result.Year
-#         disease_dic["Disease"] = result.Disease_Name
-#         disease_dic["Infection_Rate"] = result.Infection_Rate
-#         disease_dic["Location"] = result.Location
-#         disease_dic["Disease_Group"] = result.Disease_Group
-        
-#         disease_list.append(disease_dic)
-  
-#     # make json readable 
-#     return jsonify(disease_list)
 
 
 if __name__ == '__main__':

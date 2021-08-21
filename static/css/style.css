@@ -1,7 +1,4 @@
-/* .iframeContainer {
-  padding: 20px;
-  border: 1px solid #e3e3e3;
-} */
+
 
 .hero {
   position: relative;
@@ -14,7 +11,6 @@
   background-position: bottom center;
   background-size: cover;
 }
-
 
 .container-xxl {
   padding: 10;
@@ -61,11 +57,6 @@ body {
 #footer p {
   margin: 0;
   font-size: 16px;
-}
-
-#icon {
-  position: relative;
-  
 }
 
 .pic {
