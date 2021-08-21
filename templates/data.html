@@ -43,26 +43,26 @@
     </div>
 
     <div class="container-fluid">
-      <div class="row p-5" id="heading">
-      </div>
-
-      <div class ="row pt-5">        
+   
+      <div class ="row pt-3">        
         <div id="predictedTTHM" data-prediction='{{ prediction[0]|tojson }}'>  
-          <h4> Total Trihalomethane Formation Prediction:  
+          <h4 class="p-5"> Total Trihalomethane Formation Prediction:  
             <span id = "pred" class="badge bg-danger"> {{ prediction[0]|round|int }} ug/L </span>
           </h4>
         </div>
         <div id="testdata" data-form_data="{{ form_data }}"></div>
       </div>
 
-      <div class="row mt-5">
-        <div class="col-sm-2"> 
+      <div class="row p-2">
+        <!-- <div class="col-sm-1"> 
        
-        </div>
-        <div class="col-sm-2 p-0 m-0">
-          <h6 class="text-end pt-2">Select Parameter</h6>
+        </div> -->
+        
+        <div class="col-sm-3 text-bottom pt-4 ps-5 m-0">
+          <p>See how input measurements compared and predicted TTHM compared with data used to create and test models.</p>
         </div>
         <div class="col-sm-2">
+          <h6 class="p-2">Select Parameter</h6>
           <select class="form-select" style="width: 300px" id="selectButton"></select>
         </div>
 
@@ -70,7 +70,7 @@
 
 
 
-      <div class ="row pt-5">
+      <!-- <div class ="row pt-5">
         <div class="col-sm-6">
           <h5> 
             <span class="badge bg-secondary">Click States to Explore</span>
@@ -81,35 +81,24 @@
             <span class="badge bg-secondary">Distribution of Groups</span>
           </h5>
         </div>
-      </div>
+      </div> -->
 
       <div class="row">
         <div class="col-sm-6"> 
-          <div id="scatter" class="bg-light p-3">
-            <h6 id="mapsummary">TTHM vs Dose Rate</h6>
+          <div id="scatter" class="bg-light p-3 m-3">
+            <h6 id="mapsummary" class="p-3">TTHM vs Dose Rate</h6>
           </div>
         </div>
       
 
         <div class="col-sm-6">
-          <div id="bar" class="bg-light"> 
+          <div id="bar" class="bg-light p-3 m-3"> 
             <h6 id="barsummary" class="p-3">Distribution of TTHMs</h6> 
           </div>
         </div>
       </div>
 
-      <div class ="row pt-5">
-        <div class="col-sm-6">
-          <h5> 
-            <span class="badge bg-secondary">Disease Trends</span> 
-          </h5>
-        </div>
-        <div class="col-sm-6">
-          <h5> 
-            <span class="badge bg-secondary">Distribution in States</span> 
-          </h5>
-        </div>
-      </div>
+
 
     </div>
   

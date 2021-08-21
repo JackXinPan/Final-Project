@@ -32,90 +32,143 @@ d3.csv("/static/data/SW_Data.csv", function(SW_data) {
 
  
 
-        // set the dimensions and margins of the graph
-var margin = {top: 10, right: 30, bottom: 30, left: 40},
-width = 460 - margin.left - margin.right,
-height = 400 - margin.top - margin.bottom;
+  // set the dimensions and margins of the graph
+  var margin = {top: 10, right: 10, bottom: 50, left: 80},
+  width = 830 - margin.left - margin.right,
+  height = 600 - margin.top - margin.bottom;
 
-// append the svg object to the body of the page
-var svgbar = d3.select("#bar")
-.append("svg")
-.attr("width", width + margin.left + margin.right)
-.attr("height", height + margin.top + margin.bottom)
-.append("g")
-.attr("transform",
-      "translate(" + margin.left + "," + margin.top + ")");
-
-
-
-// X axis: scale and draw:
-var x = d3.scaleLinear()
-.domain([0, 550])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
-.range([0, width]);
-svgbar.append("g")
-.attr("transform", "translate(0," + height + ")")
-.call(d3.axisBottom(x));
-
-// set the parameters for the histogram
-var histogram = d3.histogram()
-.value(function(d) { return d.TTHM; })   // I need to give the vector of value
-.domain(x.domain())  // then the domain of the graphic
-.thresholds(x.ticks(30)); // then the numbers of bins
-
-// And apply this function to data to get the bins
-var bins = histogram(SW_data);
-console.log(bins)
-// Y axis: scale and draw:
-var y = d3.scaleLinear()
-.range([height, 0]);
-y.domain([0, d3.max(bins, function(d) { return d.length; })]);   // d3.hist has to be called before the Y axis obviously
-svgbar.append("g")
-.call(d3.axisLeft(y));
-
-// append the bar rectangles to the svg element
-svgbar.selectAll("rect")
-.data(bins)
-.enter()
-.append("rect")
-  .attr("x", 1)
-  .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
-  .attr("width", function(d) { return x(d.x1) - x(d.x0)-1 ; })
-  .attr("height", function(d) { return height - y(d.length); })
-  .style("fill", "#69b3a2")
-
-
-
-
-var star = d3.symbol().type(d3.symbolStar).size(80);
-
-
-svgbar.append("path")
-.attr("d",star)
-.attr("transform","translate(" + x(prediction) +"," + y(5) +")")
-.attr("stroke","rgb(175,0,42)")
-.attr("fill-opacity","0.5")
-.attr("fill","rgb(227,38,54)");
-
-
-
-// set the dimensions and margins of the graph
-// var smargin = {top: 10, right: 30, bottom: 30, left: 60},
-//     swidth = 460 - margin.left - margin.right,
-//     height = 400 - margin.top - margin.bottom;
-
-// append the svg object to the body of the page
-var scattersvg = d3.select("#scatter")
+  // append the svg object to the body of the page
+  var svgbar = d3.select("#bar")
   .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
   .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+  .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+  // X axis: scale and draw:
+  var x = d3.scaleLinear()
+  .domain([0, 550])     
+  .range([0, width]);
+  svgbar.append("g")
+  .attr("transform", "translate(0," + height + ")")
+  .call(d3.axisBottom(x));
+
+  // set the parameters for the histogram
+  var histogram = d3.histogram()
+  .value(function(d) { return d.TTHM; })   
+  .domain(x.domain())  
+  .thresholds(x.ticks(30)); 
+
+  // And apply this function to data to get the bins
+  var bins = histogram(SW_data);
+  console.log(bins)
+  // Y axis: scale and draw:
+  var y = d3.scaleLinear()
+  .range([height, 0]);
+  y.domain([0, d3.max(bins, function(d) { return d.length; })]);   
+  svgbar.append("g")
+  .call(d3.axisLeft(y));
+
+  // append the bar rectangles to the svg element
+  var barchart = svgbar.selectAll("rect")
+  .data(bins)
+  .enter()
+  .append("rect")
+    .attr("x", 1)
+    .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
+    .attr("width", function(d) { return x(d.x1) - x(d.x0)-1 ; })
+    .attr("height", function(d) { return height - y(d.length); })
+    .style("fill", "#69b3a2")
+
+
+  // x axis label
+  svgbar.append("g")
+    .attr("text-anchor", "middle")
+    .attr("font-size",14)
+    .attr("fill","black")
+    .append("text")
+    .attr("transform", "translate("+width/2 + "," + (height+40) + ")")
+    .attr("id","xs")
+    .text("TTHM (ug/L)")
+
+  // y axis label
+  svgbar.append("g")
+  .attr("text-anchor", "middle")
+  .attr("font-size",14)
+  .attr("fill","black")
+  .append("text")
+  .attr("y", -40)
+  .attr("x", -height/2)
+  .attr("transform","rotate(-90)")
+  .attr("id","xs")
+  .text("Count")
+
+console.log(bins[2].map(d => d.TTHM))
+console.log(bins[2].map(d => +d.TTHM).reduce((a,b)=> a+b)/bins[2].length)
+
+  var star = d3.symbol().type(d3.symbolStar).size(80);
+
+
+  svgbar.append("path")
+  .attr("d",star)
+  .attr("transform","translate(" + x(prediction) +"," + y(5) +")")
+  .attr("stroke","rgb(175,0,42)")
+  .attr("fill-opacity","0.5")
+  .attr("fill","rgb(227,38,54)");
+
+  svgbar.append("text")
+  .text("predicted TTHM")
+  .attr("transform","translate(615,10)")
+  .attr("stroke","gray")
+  .attr("fill","gray");
+
+  svgbar.append("path")
+  .attr("d",star)
+  .attr("transform","translate(600,5)")
+  .attr("stroke","rgb(175,0,42)")
+  .attr("fill-opacity","0.5")
+  .attr("fill","rgb(227,38,54)");
+
+
+    //initialise map tool tip
+    var bartoolTip = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([0, 29])
+        .html(d => { return (`<h6>Average TTHM: ${Math.round(d.map(e => +e.TTHM).reduce((a,b)=> a+b)/d.length)} </h6><h6>Count: ${d.length}</h6><h6>Predicted TTHM: ${Math.round(prediction)}</h6>`)});
+    
+    // add tooltip to map
+    barchart.call(bartoolTip);
+    
+    // on mouseover show tooltip
+    barchart.on("mouseover", function(d) {
+      bartoolTip.show(d, this)
+      d3.select(this).style("stroke","black")
+            })
+    // on mouseout hide tooltip      
+            .on("mouseout", function(d) {
+              bartoolTip.hide(d)
+              d3.select(this).style("stroke",null)
+            });   
 
 
 
 
-      // Add X axis
+  // append the svg object to the body of the page
+  var scattersvg = d3.select("#scatter")
+    .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+
+  // Add X axis
   var xs = d3.scaleLinear()
   .domain([0, 13])
   .range([ 0, width ]);
@@ -131,15 +184,16 @@ var ys = d3.scaleLinear()
   .call(d3.axisLeft(ys));
 
 // Add dots
-scattersvg.append('g')
+var scatterplot = scattersvg.append('g')
   .selectAll("dot")
   .data(SW_data)
   .enter()
   .append("circle")
     .attr("cx", function (d) {  return xs(d["Dose Rate (mg/L)"]); } )
     .attr("cy", function (d) { return ys(d.TTHM); } )
-    .attr("r", 3)
+    .attr("r", 5)
     .style("fill", "#69b3a2")
+    .style("opacity",0.8)
 
   scattersvg.append("path")
     .attr("d",star)
@@ -148,6 +202,62 @@ scattersvg.append('g')
     .attr("fill-opacity","0.5")
     .attr("fill","rgb(227,38,54)");
 
+      // x axis label
+  scattersvg.append("g")
+  .attr("text-anchor", "middle")
+  .attr("font-size",14)
+  .attr("fill","black")
+  .append("text")
+  .attr("transform", "translate("+width/2 + "," + (height+40) + ")")
+  .attr("id","xs")
+  .text("Dose Rate (mg/L)")
+
+  // y axis label
+  scattersvg.append("g")
+  .attr("text-anchor", "middle")
+  .attr("font-size",14)
+  .attr("fill","black")
+  .append("text")
+  .attr("y", -50)
+  .attr("x", -height/2)
+  .attr("transform","rotate(-90)")
+  .attr("id","xs")
+  .text("TTHM (ug/L)")
+
+
+
+  scattersvg.append("text")
+  .text("predicted TTHM")
+  .attr("transform","translate(615,10)")
+  .attr("stroke","gray")
+  .attr("fill","gray");
+
+  scattersvg.append("path")
+  .attr("d",star)
+  .attr("transform","translate(600,5)")
+  .attr("stroke","rgb(175,0,42)")
+  .attr("fill-opacity","0.5")
+  .attr("fill","rgb(227,38,54)");
+
+      //initialise map tool tip
+      var scattertoolTip = d3.tip()
+      .attr("class", "d3-tip")
+      .offset([0, 25])
+      .html(d => { return (`<h6>TTHM: ${d.TTHM} </h6><h6>Dose Rate: ${d["Dose Rate (mg/L)"]}</h6><h6>Predicted TTHM: ${Math.round(prediction)}</h6>`)});
+  
+  // add tooltip to map
+  scatterplot.call(scattertoolTip);
+  
+  // on mouseover show tooltip
+  scatterplot.on("mouseover", function(d) {
+    scattertoolTip.show(d, this)
+    d3.select(this).style("stroke","black")
+          })
+  // on mouseout hide tooltip      
+          .on("mouseout", function(d) {
+            scattertoolTip.hide(d)
+            d3.select(this).style("stroke",null)
+          });   
 
 
 
@@ -174,30 +284,13 @@ scattersvg.append('g')
 
 
 
-  // data filtered by disease group
-  var f = apidata.filter(function(d) { return d.Disease_Group===groupoption}).filter(function(d) { return d.Location !="Aust" && d.Location !="Last 5yearsmean" });
-    
-  // data filtered by state 
-  var statefiltered = f.filter(function(d) { return d.Location===locationoption});
-
-  // data filtered by year
-  var yearfiltered = apidata.filter(function(d) { return d.Year===yearoption}).filter(function(d) { return d.Location !="Aust" && d.Location !="Last 5yearsmean" });
-
-  // data filtered by location and year
-  var alllocation = apidata.filter(d=>d.Location===locationoption).filter(d=>d.Year===yearoption).filter(function(d) { return d.Location !="Aust" && d.Location !="Last 5yearsmean" });
+ 
 
 
   // get states geojson data
   d3.json("/static/data/australian-states.min.geojson", function(data){
   
-  // array of state names from geojson
-  var fullstatenames = ["New South Wales", "Victoria", "Queensland", "South Australia", "Western Australia", "Tasmania", "Northern Territory", "Australian Capital Territory"];
-    
-  // array of state abbreviations from database
-  var stateabbr = ["NSW", "VIC", "QLD", "SA", "WA", "TAS", "NT", "ACT"];
-    
-  // map total rate of infection for each state per group and year
-  var maxgroupperstate = stateabbr.map(state => d3.sum(apidata.filter(function(d) { return d.Disease_Group===groupoption}).filter(function(d) { return d.Location===state}).filter(d=>d.Year===yearoption).map(d => d.Infection_Rate)));
+ 
 
   /* MAP CHART */
   
