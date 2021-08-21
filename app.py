@@ -15,7 +15,7 @@ app = Flask(__name__)
 def form():
     return render_template('index.html')
  
-@app.route('/predict/', methods = ['POST', 'GET'])
+@app.route('/data/', methods = ['POST', 'GET'])
 def prediction():
     if request.method == 'GET':
         return f"The URL /data is accessed directly. Try going to '/' to submit form"
