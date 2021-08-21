@@ -7,6 +7,7 @@ from sqlalchemy import create_engine, func, inspect
 import numpy as np
 import joblib
 import json 
+from sklearn.preprocessing import StandardScaler
 
 
 from flask import Flask, jsonify, render_template, request
@@ -48,7 +49,6 @@ def prediction():
         watertype = request.form.get('watertype')
         form_data = request.form.to_dict(flat=True)
         form_json = json.dumps(form_data) 
-        print(form_data)
 
         if br == "" or cl == "" or t30 == "" or turb == "" or cond == "" or pH == "" or colour == "":
             try:
@@ -64,10 +64,12 @@ def prediction():
 
 
 def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
+
+
         
     if br == "" or cl == "" or t30 == "" or turb == "" or cond == "" or pH == "" or colour == "":
 
-        test_data = [doserate, foc, uva]
+        test_data = [float(doserate), float(foc), float(uva), 0, 0, 0, 0, 0, 0, 0]
 
         test_data = np.array(test_data)
         test_data = test_data.reshape(1,-1)
@@ -79,9 +81,16 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
 
                 #load trained model
             trained_model = joblib.load("models/GW_model_trimmed.pkl")
-                
+
+            scaler = joblib.load("models/GW_scaler.pkl")
+            
+            scaled_data = scaler.transform(test_data)
+
+            scaled_data = np.array(scaled_data[0][0:3])
+
+            scaled_data = scaled_data.reshape(1,-1)
                 #predict
-            prediction = trained_model.predict(test_data)
+            prediction = trained_model.predict(scaled_data)
 
 
         elif watertype == "SW":
@@ -89,14 +98,21 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
 
                 #load trained model
             trained_model = joblib.load("models/SW_model_trimmed.pkl")
+
+            scaler = joblib.load("models/SW_scaler.pkl")
+
+            scaled_data = scaler.transform(test_data)
+
+            scaled_data = np.array(scaled_data[0][0:3])
+
+            scaled_data = scaled_data.reshape(1,-1)
                 
                 #predict
-            prediction = trained_model.predict(test_data)
+            prediction = trained_model.predict(scaled_data)
 
 
     else:
-
-        test_data = [doserate, foc, uva, br,cl,t30,turb,cond,pH,colour]
+        test_data = [float(doserate), float(foc), float(uva), float(br), float(cl), float(t30), float(turb), float(cond), float(pH), float(colour)]
 
         test_data = np.array(test_data)
         test_data = test_data.reshape(1,-1)
@@ -107,18 +123,28 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
             file = open("models/GW_model.pkl","rb")
                                 #load trained model
             trained_model = joblib.load("models/GW_model.pkl")
+            
+            scaler = joblib.load("models/GW_scaler.pkl")
+
+            scaled_data = scaler.transform(test_data)
+
                 
                 #predict
-            prediction = trained_model.predict(test_data)
+            prediction = trained_model.predict(scaled_data)
 
 
         elif watertype == "SW":
             file = open("models/SW_model.pkl","rb")
                                 #load trained model
             trained_model = joblib.load("models/SW_model.pkl")
+
+            scaler = joblib.load("models/SW_scaler.pkl")
+
+            scaled_data = scaler.transform(test_data)
+
                 
                 #predict
-            prediction = trained_model.predict(test_data)
+            prediction = trained_model.predict(scaled_data)
 
         
 
