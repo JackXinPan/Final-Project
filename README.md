@@ -1,6 +1,6 @@
 # Disinfection By-Production Formation Prediction
 
-![water](static/images/water.jpg)
+![water](static/images/tapwater.png)
 
 ## Introduction
 
