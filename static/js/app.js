@@ -58,7 +58,7 @@ d3.csv(file, function(SW_data) {
 
   // set the dimensions and margins of the graphs
   var margin = {top: 10, right: 10, bottom: 50, left: 80},
-  width = 830 - margin.left - margin.right,
+  width = 660 - margin.left - margin.right,
   height = 600 - margin.top - margin.bottom;
 
 
@@ -148,13 +148,13 @@ d3.csv(file, function(SW_data) {
   // add lengend for star symbol
   svgbar.append("text")
   .text("predicted TTHM")
-  .attr("transform","translate(615,10)")
+  .attr("transform","translate(415,10)")
   .attr("stroke","gray")
   .attr("fill","gray");
 
   svgbar.append("path")
   .attr("d",star)
-  .attr("transform","translate(600,5)")
+  .attr("transform","translate(400,5)")
   .attr("stroke","rgb(175,0,42)")
   .attr("fill-opacity","0.5")
   .attr("fill","rgb(227,38,54)");
@@ -261,13 +261,13 @@ d3.csv(file, function(SW_data) {
   // add legend for star
   scattersvg.append("text")
     .text("predicted TTHM")
-    .attr("transform","translate(615,10)")
+    .attr("transform","translate(415,10)")
     .attr("stroke","gray")
     .attr("fill","gray");
 
   scattersvg.append("path")
     .attr("d",star)
-    .attr("transform","translate(600,5)")
+    .attr("transform","translate(400,5)")
     .attr("stroke","rgb(175,0,42)")
     .attr("fill-opacity","0.5")
     .attr("fill","rgb(227,38,54)");
