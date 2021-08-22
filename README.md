@@ -85,9 +85,9 @@ The page was created using:
 
 ## Analysis
 
-### Question 1: Can a model be created to accurated predict the TTHM formation based on available parameters?
-### Question 2: Which parameters contributed most to TTHM formation based on the selected model?
-### Question 3: Does the water type (surface or ground) effect the model's accuracy?
+#### Question 1: Can a model be created to accurated predict the TTHM formation based on available parameters?
+#### Question 2: Which parameters contributed most to TTHM formation based on the selected model?
+#### Question 3: Does the water type (surface or ground) effect the model's accuracy?
 
 Initial data exploration using matplotlib indicated that the ground water and surface water parameters had different 
 distributions so were separated for modeling. 
@@ -120,9 +120,14 @@ reduction in r2, 0.83. Both models were exported for the heroku app.
 ![prediction comparison](static/data/predsw.png)
 
 
+The heroku app was deployed - https://disinfectionbyproductpredictor.herokuapp.com/
+
+
+![app example](static/data/app2.png)
 
 
 
+![app example](static/data/app1.png)
 
 
 
