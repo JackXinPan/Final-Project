@@ -33,17 +33,16 @@ def prediction():
         pH = request.form.get('pH')
         colour = request.form.get('colour')
         watertype = request.form.get('watertype')
-        form_data = request.form.to_dict(flat=True)
+        form_data = request.form.to_dict()
         form_json = json.dumps(form_data) 
 
-        if br == "" or cl == "" or t30 == "" or turb == "" or cond == "" or pH == "" or colour == "":
-            try:
+        try:
         
-                prediction = makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype)
-                #pass prediction to template
-                return render_template('data.html', prediction = prediction, form_data = form_json)
+            prediction = makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype)
+            #pass prediction to template
+            return render_template('data.html', prediction = prediction, form_data = form_json)
     
-            except ValueError:
+        except ValueError:
                 return "Please Enter valid values"
         
 
