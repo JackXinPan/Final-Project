@@ -146,7 +146,10 @@ Regression, and for ground water it was Random Forest Regression using Grid Cros
 2. Which parameters contributed most to TTHM formation based on the selected model?
 
 In surface waters the Dose Rate, UVA and FOC contributed the most to the model and a trimmed version of the model using only those parameters was
-able to be created with minimal reduction in correlation and accuracy. This will allow for predictions to be made faster and more cheaply.
+able to be created with minimal reduction in correlation (r2 = 0.83) and accuracy (mean squared error = 1943, sqrt = 44). This will allow for predictions 
+to be made faster and more cheaply.
+
+![trimmed model](static/data/trimmedpred.png)
 
 In ground waters the Dose Rate, 30 min decay and colour contributed most to the model however using only those parameters did not produce a model
 accurate enough to justify removing them.
