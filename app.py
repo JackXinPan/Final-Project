@@ -4,7 +4,6 @@
 import numpy as np
 import joblib
 import json 
-from sklearn.ensemble import GradientBoostingRegressor
 from flask import Flask, jsonify, render_template, request
 
 
