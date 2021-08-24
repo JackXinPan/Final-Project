@@ -101,7 +101,7 @@ predicted and actual TTHMs were compared.
 
 ![r2 comparison](static/data/r2bar.png)
 
-![mse comparison](static/data/mse.png)
+![mse comparison](static/data/msebar.png)
 
 
 The ground water models overall has lower r2s compared to the surface water models, therefore there was less correlation 

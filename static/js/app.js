@@ -33,6 +33,8 @@ d3.csv(file, function(SW_data) {
   // relate form parameter names with original data names
   var formparameters = {"Dose Rate (mg/L)":"doserate", "FOC":"foc", "UVA":"uva", "Br":"br","Cl":"cl","30 min decay":"t30","TURB":"turb","COND":"cond","pH":"pH","COLOUR":"colour"};
 
+  var units = {"Dose Rate (mg/L)":"", "FOC":"(mg/L)", "UVA":"", "Br":"mg/L","Cl":"mg/L","30 min decay":"(mg/L)","TURB":"NTU","COND":"mS/cm","pH":"","COLOUR":"HU"};
+
   // default parmeter
   var parameter = "Dose Rate (mg/L)";
 
@@ -243,7 +245,7 @@ d3.csv(file, function(SW_data) {
     .attr("fill","black")
     .append("text")
     .attr("transform", "translate("+width/2 + "," + (height+40) + ")")
-    .attr("id","xs")
+    .attr("class","xslabel")
     .text("Dose Rate (mg/L)")
 
   // y axis label
@@ -255,7 +257,7 @@ d3.csv(file, function(SW_data) {
     .attr("y", -50)
     .attr("x", -height/2)
     .attr("transform","rotate(-90)")
-    .attr("id","xs")
+    .attr("id","yslabel")
     .text("TTHM (ug/L)")
 
   // add legend for star
@@ -324,6 +326,10 @@ d3.csv(file, function(SW_data) {
         .transition()
         .duration(1000)
         .attr("cx", d => xs(d[parameter]));
+
+      // update x axis label
+      scattersvg.select(".xslabel")
+        .text(`${parameter} ${units[parameter]}`);
 
       // if the parameter was in form then change star position 
         if (form_data[formparameter] > 0) {

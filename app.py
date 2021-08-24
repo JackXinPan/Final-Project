@@ -4,7 +4,7 @@
 import numpy as np
 import joblib
 import json 
-
+from sklearn.ensemble import GradientBoostingRegressor
 from flask import Flask, jsonify, render_template, request
 
 
@@ -42,7 +42,7 @@ def prediction():
             #pass prediction to template
             return render_template('data.html', prediction = prediction, form_data = form_json)
     
-        except ValueError:
+        except:
                 return "Please Enter valid values"
         
 
@@ -53,29 +53,15 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
     # trimmed data
     if br == "" or cl == "" or t30 == "" or turb == "" or cond == "" or pH == "" or colour == "":
 
-        test_data = [float(doserate), float(foc), float(uva), 0, 0, 0, 0, 0, 0, 0]
+        test_data = [float(uva), float(foc), 0, float(doserate), 0, 0, 0, 0, 0, 0]
 
         test_data = np.array(test_data)
         test_data = test_data.reshape(1,-1)
-        print(test_data)
 
         if watertype == "GW":
 
-            #load trained model
-            trained_model = joblib.load("models/GW_model_trimmed.pkl")
-
-            #load scaler
-            scaler = joblib.load("models/GW_scaler.pkl")
-            
-            #scale data
-            scaled_data = scaler.transform(test_data)
-
-            #trim and reshape data
-            scaled_data = np.array(scaled_data[0][0:3])
-            scaled_data = scaled_data.reshape(1,-1)
-
-            #predict
-            prediction = trained_model.predict(scaled_data)
+            # return null to make error
+            prediction = "null"
 
 
         elif watertype == "SW":
@@ -90,7 +76,7 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
             scaled_data = scaler.transform(test_data)
 
             #trim and reshape data
-            scaled_data = np.array(scaled_data[0][0:3])
+            scaled_data = np.array(np.append(scaled_data[0][0:2],scaled_data[0][3]))
             scaled_data = scaled_data.reshape(1,-1)
                 
             #predict
@@ -98,7 +84,7 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
 
     # full data set
     else:
-        test_data = [float(doserate), float(foc), float(uva), float(br), float(cl), float(t30), float(turb), float(cond), float(pH), float(colour)]
+        test_data = [float(uva), float(foc), float(pH), float(doserate), float(t30), float(br), float(colour), float(turb), float(cl), float(cond)]
 
         test_data = np.array(test_data)
         test_data = test_data.reshape(1,-1)
@@ -112,7 +98,6 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
             scaler = joblib.load("models/GW_scaler.pkl")
 
             scaled_data = scaler.transform(test_data)
-
                 
             #predict
             prediction = trained_model.predict(scaled_data)
@@ -127,14 +112,12 @@ def makeprediction(doserate, foc, uva, br,cl,t30,turb,cond,pH,colour,watertype):
 
             scaled_data = scaler.transform(test_data)
 
-                
             #predict
             prediction = trained_model.predict(scaled_data)
 
         
     return prediction
     
-
 
 
 if __name__ == '__main__':
