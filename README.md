@@ -4,8 +4,11 @@
 
 ## Introduction
 
-Trihalomethanes (THMs) are a type of disinfection by-product formed when chlorine reacts with natural organic matter in water. Currently the THM 
-formation potential of source waters is measured by dosing samples with chlorine and measuring the Total THMs (TTHM) formed after 7 days. This
+Trihalomethanes (THMs) are a type of disinfection by-product formed when chlorine reacts with natural organic matter in water. 
+
+![thms](static/images/D0EM00239A.gif)
+
+Currently the THM formation potential of source waters is measured by dosing samples with chlorine and measuring the Total THMs (TTHM) formed after 7 days. This
 process is costly and slow. The aim of this project was to develop a model to predict disinfection by-product formation, specifically TTHMs, using a range 
 of parameters measured from ground and surface waters and comparing them to disinfection by-product formation potentials that were measured at the same time.
 
